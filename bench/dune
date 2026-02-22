@@ -1,3 +1,0 @@
-(executables
- (names bench_nx_oxcaml)
- (libraries nx nx.core ubench nx_oxcaml))
