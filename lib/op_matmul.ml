@@ -58,7 +58,8 @@ open Import
 
    - Pack B is redundantly done per domain. Restructuring to pack once per
      (jc, pc) block regressed due to effect-handler overhead in
-     Parallel.run — fixing the parallel primitives would unlock this.
+     Parallel.run. parallel_execute now waits without an effect handler, so
+     this is worth measuring again.
 
    - Parallelization strategy: we parallelize the ic-loop (3rd loop). BLIS
      literature suggests parallelizing the jr/ir loops (1st/2nd) around the

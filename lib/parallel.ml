@@ -4,7 +4,6 @@
   ---------------------------------------------------------------------------*)
 
 type task = { start_idx : int; end_idx : int; compute : int -> int -> unit }
-type _ Effect.t += WaitCompletion : int -> unit Effect.t
 
 type pool = {
   num_workers : int;
@@ -76,44 +75,23 @@ let get_or_setup_pool () =
 
 let get_num_domains pool = pool.num_workers + 1
 
-let run pool f =
-  let open Effect.Deep in
-  try_with f ()
-    Effect.
-      {
-        effc =
-          (fun (type a) (e : a t) ->
-            match e with
-            | WaitCompletion target ->
-                Some
-                  (fun (k : (a, unit) continuation) ->
-                    let rec wait () =
-                      if Atomic.get pool.completed >= target then continue k ()
-                      else (
-                        Domain.cpu_relax ();
-                        wait ())
-                    in
-                    wait ())
-            | _ -> None);
-      }
-
 let parallel_execute pool tasks =
-  run pool (fun () ->
-      let num_tasks = Array.length tasks in
-      if num_tasks <> get_num_domains pool then
-        invalid_arg
-          "parallel_execute: number of tasks must equal num_workers + 1";
-      Atomic.set pool.completed 0;
-      Mutex.lock pool.mutex;
-      Atomic.incr pool.generation;
-      for i = 0 to pool.num_workers - 1 do
-        pool.task_assignments.(i) <- Some tasks.(i)
-      done;
-      Condition.broadcast pool.work_available;
-      Mutex.unlock pool.mutex;
-      let main_task = tasks.(pool.num_workers) in
-      main_task.compute main_task.start_idx main_task.end_idx;
-      Effect.perform (WaitCompletion pool.num_workers))
+  let num_tasks = Array.length tasks in
+  if num_tasks <> get_num_domains pool then
+    invalid_arg "parallel_execute: number of tasks must equal num_workers + 1";
+  Atomic.set pool.completed 0;
+  Mutex.lock pool.mutex;
+  Atomic.incr pool.generation;
+  for i = 0 to pool.num_workers - 1 do
+    pool.task_assignments.(i) <- Some tasks.(i)
+  done;
+  Condition.broadcast pool.work_available;
+  Mutex.unlock pool.mutex;
+  let main_task = tasks.(pool.num_workers) in
+  main_task.compute main_task.start_idx main_task.end_idx;
+  while Atomic.get pool.completed < pool.num_workers do
+    Domain.cpu_relax ()
+  done
 
 let parallel_for pool start end_ compute_chunk =
   let total_iterations = end_ - start + 1 in
