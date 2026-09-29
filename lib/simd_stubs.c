@@ -105,6 +105,8 @@ BUILTIN(caml_sse_vec128_or)
 BUILTIN(caml_sse_vec128_xor)
 BUILTIN(caml_sse42_int64x2_cmpgt)
 BUILTIN(caml_sse3_vec128_dup_low_64)
+BUILTIN(caml_sse_vec128_low_64_to_high_64)
+BUILTIN(caml_sse_vec128_high_64_to_low_64)
 
 /* Int32x4 - SSE */
 BUILTIN(caml_sse2_int32x4_add)

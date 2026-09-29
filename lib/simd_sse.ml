@@ -86,7 +86,7 @@ module Int64x2 = struct
     [@@noalloc] [@@unboxed] [@@builtin]
 
   external low_64_to_high_64 : t -> t -> t @@ portable
-    = "caml_sse2_unreachable" "caml_simd_vec128_low_64_to_high_64"
+    = "caml_sse2_unreachable" "caml_sse_vec128_low_64_to_high_64"
     [@@noalloc] [@@unboxed] [@@builtin]
 
   let[@inline always] set1 a = dup (low_of a)
@@ -311,11 +311,11 @@ module Float64x2 = struct
     [@@noalloc] [@@builtin]
 
   external low_64_to_high_64 : t -> t -> t @@ portable
-    = "caml_sse2_unreachable" "caml_simd_vec128_low_64_to_high_64"
+    = "caml_sse2_unreachable" "caml_sse_vec128_low_64_to_high_64"
     [@@noalloc] [@@unboxed] [@@builtin]
 
   external high_64_to_low_64 : t -> t -> t @@ portable
-    = "caml_sse2_unreachable" "caml_simd_vec128_high_64_to_low_64"
+    = "caml_sse2_unreachable" "caml_sse_vec128_high_64_to_low_64"
     [@@noalloc] [@@unboxed] [@@builtin]
 
   let[@inline always] set1 a =
