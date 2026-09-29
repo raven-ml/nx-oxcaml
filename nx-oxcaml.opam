@@ -6,12 +6,12 @@ description:
 maintainer: ["Thibaut Mattio <thibaut.mattio@gmail.com>"]
 authors: ["Thibaut Mattio"]
 license: "ISC"
-homepage: "https://github.com/raven-ml/raven"
-bug-reports: "https://github.com/raven-ml/raven/issues"
+homepage: "https://github.com/raven-ml/nx-oxcaml"
+bug-reports: "https://github.com/raven-ml/nx-oxcaml/issues"
 depends: [
-  "ocaml-variants" {= "5.2.0+ox"}
-  "dune" {>= "3.20"}
-  "nx"
+  "ocaml-variants" {= "5.4.0+ox"}
+  "dune" {>= "3.21"}
+  "nx" {= "1.0.0~alpha3"}
   "odoc" {with-doc}
 ]
 build: [
@@ -28,5 +28,5 @@ build: [
     "@doc" {with-doc}
   ]
 ]
-dev-repo: "git+https://github.com/raven-ml/raven.git"
+dev-repo: "git+https://github.com/raven-ml/nx-oxcaml.git"
 x-maintenance-intent: ["(latest)"]

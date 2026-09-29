@@ -2,38 +2,35 @@
 
 nx-oxcaml is a high-performance nx backend using oxcaml's unboxed types and SIMD intrinsics.
 
-it is part of the raven ecosystem. see the root [AGENTS.md](../AGENTS.md) for overall project philosophy and guidelines.
+it belongs to the raven ecosystem (https://github.com/raven-ml/raven) and follows its philosophy and guidelines. it builds against the released `nx` 1.0.0~alpha3 from opam, because raven's development branch needs OCaml 5.5 syntax and oxcaml is based on OCaml 5.4.
 
 ## project structure
 
-- `lib/` - main library (`nx_oxcaml` / `nx-oxcaml`)
+- `lib/` - main library (`nx_oxcaml` / `nx-oxcaml`), an implementation of the `nx.backend` virtual library
 - `test/` - test suite (`test_nx_oxcaml`)
 - `bench/` - benchmarks (`bench_nx_oxcaml`)
 - `vendor/` - vendored dependencies
 
 ## build instructions
 
-all dune commands MUST be run from the `nx-oxcaml/` directory with `--root .` to get an isolated build that does not conflict with the parent raven project.
+the project builds in an opam switch with the oxcaml compiler (`ocaml-variants.5.4.0+ox`); see the README.
 
 ```sh
 # build
-dune build --root .
+dune build
 
 # run tests
-dune test --root .
+dune test
 
 # run benchmarks
-dune exec --root . bench/bench_nx_oxcaml.exe
+dune exec bench/bench_nx_oxcaml.exe
 
 # watch mode
-dune build --root . --watch
+dune build --watch
 ```
 
 ## important rules
 
-- ALWAYS use `--root .` with every dune command
-- ALWAYS run dune commands from the `nx-oxcaml/` directory
-- NEVER run dune commands from the raven root — this will cause conflicts with the parent project
 - NEVER stage or commit changes unless explicitly requested
 - NEVER run `dune clean`
 - NEVER use the `--force` argument

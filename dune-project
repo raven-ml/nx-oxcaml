@@ -7,29 +7,13 @@
 (using oxcaml 0.1)
 
 (source
- (github raven-ml/raven))
+ (github raven-ml/nx-oxcaml))
 
 (authors "Thibaut Mattio")
 
 (maintainers "Thibaut Mattio <thibaut.mattio@gmail.com>")
 
 (license ISC)
-
-(pin
- (url ../../)
- (package
-  (name nx)))
-
-(pin
- (url git+https://github.com/nirnayroy/ocamlfind)
- (package
-  (name ocamlfind)))
-
-(pin
- (url "git+https://github.com/Sudha247/ocamlbuild#oxcaml+dune")
- (package
-   (name ocamlbuild)
-   (version 0.15.0+ox)))
 
 (package
  (name nx-oxcaml)
@@ -38,6 +22,7 @@
   "An experimental backend for Nx that leverages OxCaml's unboxed types for improved performance.")
  (depends
   (ocaml-variants
-   (= 5.2.0+ox))
+   (= 5.4.0+ox))
   dune
-  nx))
+  (nx
+   (= 1.0.0~alpha3))))
