@@ -27,7 +27,7 @@ let cat_float64 (srcs : (float# array * View.t) list) (dst : float# array)
       axis_base := !axis_base + in_shape.(axis))
     srcs
 
-let cat_float32 (srcs : (float32# array * View.t) list) (dst : float32# array)
+let cat_float32 (srcs : (float32_u array * View.t) list) (dst : float32_u array)
     (rank : int) (axis : int) (out_offset : int) (out_strides : int array) =
   let axis_base = ref 0 in
   List.iter
@@ -93,7 +93,7 @@ let cat_int16 (srcs : (int16# array * View.t) list) (dst : int16# array)
       axis_base := !axis_base + in_shape.(axis))
     srcs
 
-let cat_int32 (srcs : (int32# array * View.t) list) (dst : int32# array)
+let cat_int32 (srcs : (int32_u array * View.t) list) (dst : int32_u array)
     (rank : int) (axis : int) (out_offset : int) (out_strides : int array) =
   let axis_base = ref 0 in
   List.iter
@@ -115,7 +115,7 @@ let cat_int32 (srcs : (int32# array * View.t) list) (dst : int32# array)
       axis_base := !axis_base + in_shape.(axis))
     srcs
 
-let cat_int64 (srcs : (int64# array * View.t) list) (dst : int64# array)
+let cat_int64 (srcs : (int64_u array * View.t) list) (dst : int64_u array)
     (rank : int) (axis : int) (out_offset : int) (out_strides : int array) =
   let axis_base = ref 0 in
   List.iter

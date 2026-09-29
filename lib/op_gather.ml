@@ -45,7 +45,7 @@ let advance_state md_index ishape idx_str out_str data_strides axis idx_lin
   done
 
 let gather_float64 (src : float# array) (dst : float# array) ishape dshape axis
-    (idx_arr : int32# array) data_offset data_strides idx_offset idx_str
+    (idx_arr : int32_u array) data_offset data_strides idx_offset idx_str
     out_offset out_strides start_idx end_idx =
   if start_idx >= end_idx then ()
   else (
@@ -105,8 +105,8 @@ let gather_float64 (src : float# array) (dst : float# array) ishape dshape axis
             idx_lin out_lin src_base
       done)
 
-let gather_float32 (src : float32# array) (dst : float32# array) ishape dshape
-    axis (idx_arr : int32# array) data_offset data_strides idx_offset idx_str
+let gather_float32 (src : float32_u array) (dst : float32_u array) ishape dshape
+    axis (idx_arr : int32_u array) data_offset data_strides idx_offset idx_str
     out_offset out_strides start_idx end_idx =
   if start_idx >= end_idx then ()
   else (
@@ -179,7 +179,7 @@ let gather_float32 (src : float32# array) (dst : float32# array) ishape dshape
       done)
 
 let gather_int8 (src : int8# array) (dst : int8# array) ishape dshape axis
-    (idx_arr : int32# array) data_offset data_strides idx_offset idx_str
+    (idx_arr : int32_u array) data_offset data_strides idx_offset idx_str
     out_offset out_strides start_idx end_idx =
   if start_idx >= end_idx then ()
   else
@@ -202,7 +202,7 @@ let gather_int8 (src : int8# array) (dst : int8# array) ishape dshape axis
     done
 
 let gather_int16 (src : int16# array) (dst : int16# array) ishape dshape axis
-    (idx_arr : int32# array) data_offset data_strides idx_offset idx_str
+    (idx_arr : int32_u array) data_offset data_strides idx_offset idx_str
     out_offset out_strides start_idx end_idx =
   if start_idx >= end_idx then ()
   else
@@ -224,8 +224,8 @@ let gather_int16 (src : int16# array) (dst : int16# array) ishape dshape axis
           idx_lin out_lin src_base
     done
 
-let gather_int32 (src : int32# array) (dst : int32# array) ishape dshape axis
-    (idx_arr : int32# array) data_offset data_strides idx_offset idx_str
+let gather_int32 (src : int32_u array) (dst : int32_u array) ishape dshape axis
+    (idx_arr : int32_u array) data_offset data_strides idx_offset idx_str
     out_offset out_strides start_idx end_idx =
   if start_idx >= end_idx then ()
   else (
@@ -297,8 +297,8 @@ let gather_int32 (src : int32# array) (dst : int32# array) ishape dshape axis
             idx_lin out_lin src_base
       done)
 
-let gather_int64 (src : int64# array) (dst : int64# array) ishape dshape axis
-    (idx_arr : int32# array) data_offset data_strides idx_offset idx_str
+let gather_int64 (src : int64_u array) (dst : int64_u array) ishape dshape axis
+    (idx_arr : int32_u array) data_offset data_strides idx_offset idx_str
     out_offset out_strides start_idx end_idx =
   if start_idx >= end_idx then ()
   else (
@@ -359,7 +359,7 @@ let gather_int64 (src : int64# array) (dst : int64# array) ishape dshape axis
       done)
 
 let gather_bool (src : bool array) (dst : bool array) ishape dshape axis
-    (idx_arr : int32# array) data_offset data_strides idx_offset idx_str
+    (idx_arr : int32_u array) data_offset data_strides idx_offset idx_str
     out_offset out_strides start_idx end_idx =
   if start_idx >= end_idx then ()
   else

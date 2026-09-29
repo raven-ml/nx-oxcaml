@@ -14,11 +14,11 @@ let create_context () = { pool = Parallel.get_or_setup_pool () }
 
 type 'b buffer =
   | Float64 : float# array -> Dtype.float64_elt buffer
-  | Float32 : float32# array -> Dtype.float32_elt buffer
+  | Float32 : float32_u array -> Dtype.float32_elt buffer
   | Int8 : int8# array -> Dtype.int8_elt buffer
   | Int16 : int16# array -> Dtype.int16_elt buffer
-  | Int32 : int32# array -> Dtype.int32_elt buffer
-  | Int64 : int64# array -> Dtype.int64_elt buffer
+  | Int32 : int32_u array -> Dtype.int32_elt buffer
+  | Int64 : int64_u array -> Dtype.int64_elt buffer
   | Bool : bool array -> Dtype.bool_elt buffer
 
 type ('a, 'b) t = {

@@ -50,8 +50,8 @@ let[@inline] lane1 v = Int32x4.low_to (Int32x4.dup_lane 1 v)
 let[@inline] lane2 v = Int32x4.low_to (Int32x4.dup_lane 2 v)
 let[@inline] lane3 v = Int32x4.low_to (Int32x4.dup_lane 3 v)
 
-let[@inline] threefry_pair ~(key_arr : int32# array) ~(ctr_arr : int32# array)
-    ~(out_arr : int32# array) ~kb ~cb ~ob ~kl ~cl ~ol =
+let[@inline] threefry_pair ~(key_arr : int32_u array) ~(ctr_arr : int32_u array)
+    ~(out_arr : int32_u array) ~kb ~cb ~ob ~kl ~cl ~ol =
   let ks0 = Array.unsafe_get key_arr kb in
   let ks1 = Array.unsafe_get key_arr (kb + kl) in
   let ks2 = Int32_u.logxor threefry_parity (Int32_u.logxor ks0 ks1) in
@@ -61,8 +61,8 @@ let[@inline] threefry_pair ~(key_arr : int32# array) ~(ctr_arr : int32# array)
       Array.unsafe_set out_arr ob r0;
       Array.unsafe_set out_arr (ob + ol) r1)
 
-let threefry_int32 pool ~(out_arr : int32# array) ~(key_arr : int32# array)
-    ~(ctr_arr : int32# array) ~shape ~key_view ~ctr_view ~out_view =
+let threefry_int32 pool ~(out_arr : int32_u array) ~(key_arr : int32_u array)
+    ~(ctr_arr : int32_u array) ~shape ~key_view ~ctr_view ~out_view =
   let rank = Array.length shape in
   let last_dim = rank - 1 in
   let total_vectors =

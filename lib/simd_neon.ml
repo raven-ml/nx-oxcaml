@@ -67,7 +67,7 @@ module Int64x2 = struct
 
   (* ───── Constants ───── *)
 
-  external const1 : int64# -> t @@ portable
+  external const1 : int64_u -> t @@ portable
     = "caml_vec128_unreachable" "caml_int64x2_const1"
     [@@noalloc] [@@builtin]
 
@@ -77,11 +77,11 @@ module Int64x2 = struct
 
   (* ───── Lanes ───── *)
 
-  external low_of : int64# -> t @@ portable
+  external low_of : int64_u -> t @@ portable
     = "caml_vec128_unreachable" "caml_int64x2_low_of_int64"
     [@@noalloc] [@@builtin]
 
-  external low_to : t -> int64# @@ portable
+  external low_to : t -> int64_u @@ portable
     = "caml_vec128_unreachable" "caml_int64x2_low_to_int64"
     [@@noalloc] [@@builtin]
 
@@ -105,10 +105,10 @@ module Int64x2 = struct
   (* ───── Array ───── *)
 
   module Array = struct
-    external unsafe_get : (int64# array[@local_opt]) @ read -> idx:int -> t
+    external unsafe_get : (int64_u array[@local_opt]) @ read -> idx:int -> t
       = "%caml_unboxed_int64_array_get128u#"
 
-    external unsafe_set : (int64# array[@local_opt]) -> idx:int -> t -> unit
+    external unsafe_set : (int64_u array[@local_opt]) -> idx:int -> t -> unit
       = "%caml_unboxed_int64_array_set128u#"
   end
 end
@@ -168,7 +168,7 @@ module Int32x4 = struct
 
   (* ───── Constants ───── *)
 
-  external const1 : int32# -> t @@ portable
+  external const1 : int32_u -> t @@ portable
     = "caml_vec128_unreachable" "caml_int32x4_const1"
     [@@noalloc] [@@builtin]
 
@@ -177,11 +177,11 @@ module Int32x4 = struct
 
   (* ───── Lanes ───── *)
 
-  external low_of : int32# -> t @@ portable
+  external low_of : int32_u -> t @@ portable
     = "caml_vec128_unreachable" "caml_int32x4_low_of_int32"
     [@@noalloc] [@@builtin]
 
-  external low_to : t -> int32# @@ portable
+  external low_to : t -> int32_u @@ portable
     = "caml_vec128_unreachable" "caml_int32x4_low_to_int32"
     [@@noalloc] [@@builtin]
 
@@ -221,10 +221,10 @@ module Int32x4 = struct
   (* ───── Array ───── *)
 
   module Array = struct
-    external unsafe_get : (int32# array[@local_opt]) @ read -> idx:int -> t
+    external unsafe_get : (int32_u array[@local_opt]) @ read -> idx:int -> t
       = "%caml_unboxed_int32_array_get128u#"
 
-    external unsafe_set : (int32# array[@local_opt]) -> idx:int -> t -> unit
+    external unsafe_set : (int32_u array[@local_opt]) -> idx:int -> t -> unit
       = "%caml_unboxed_int32_array_set128u#"
   end
 end
@@ -377,7 +377,7 @@ module Float32x4 = struct
 
   (* ───── Constants ───── *)
 
-  external const1 : float32# -> t @@ portable
+  external const1 : float32_u -> t @@ portable
     = "caml_vec128_unreachable" "caml_float32x4_const1"
     [@@noalloc] [@@builtin]
 
@@ -398,11 +398,11 @@ module Float32x4 = struct
 
   (* ───── Lanes ───── *)
 
-  external low_of : float32# -> t @@ portable
+  external low_of : float32_u -> t @@ portable
     = "caml_vec128_unreachable" "caml_float32x4_low_of_float32"
     [@@noalloc] [@@builtin]
 
-  external low_to : t -> float32# @@ portable
+  external low_to : t -> float32_u @@ portable
     = "caml_vec128_unreachable" "caml_float32x4_low_to_float32"
     [@@noalloc] [@@builtin]
 
@@ -431,10 +431,10 @@ module Float32x4 = struct
   (* ───── Array ───── *)
 
   module Array = struct
-    external unsafe_get : (float32# array[@local_opt]) @ read -> idx:int -> t
+    external unsafe_get : (float32_u array[@local_opt]) @ read -> idx:int -> t
       = "%caml_unboxed_float32_array_get128u#"
 
-    external unsafe_set : (float32# array[@local_opt]) -> idx:int -> t -> unit
+    external unsafe_set : (float32_u array[@local_opt]) -> idx:int -> t -> unit
       = "%caml_unboxed_float32_array_set128u#"
   end
 end

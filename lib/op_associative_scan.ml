@@ -166,7 +166,7 @@ let scan_float64 pool ~(out_arr : float# array) ~(in_arr : float# array) ~shape
   in
   run_scan ~pool ~shape ~axis ~in_view ~out_view ~scan_slice
 
-let scan_float32 pool ~(out_arr : float32# array) ~(in_arr : float32# array)
+let scan_float32 pool ~(out_arr : float32_u array) ~(in_arr : float32_u array)
     ~shape ~axis ~in_view ~out_view ~op =
   let scan_slice =
     match op with
@@ -319,7 +319,7 @@ let scan_int16 pool ~(out_arr : int16# array) ~(in_arr : int16# array) ~shape
   in
   run_scan ~pool ~shape ~axis ~in_view ~out_view ~scan_slice
 
-let scan_int32 pool ~(out_arr : int32# array) ~(in_arr : int32# array) ~shape
+let scan_int32 pool ~(out_arr : int32_u array) ~(in_arr : int32_u array) ~shape
     ~axis ~in_view ~out_view ~op =
   let scan_slice =
     match op with
@@ -370,7 +370,7 @@ let scan_int32 pool ~(out_arr : int32# array) ~(in_arr : int32# array) ~shape
   in
   run_scan ~pool ~shape ~axis ~in_view ~out_view ~scan_slice
 
-let scan_int64 pool ~(out_arr : int64# array) ~(in_arr : int64# array) ~shape
+let scan_int64 pool ~(out_arr : int64_u array) ~(in_arr : int64_u array) ~shape
     ~axis ~in_view ~out_view ~op =
   let scan_slice =
     match op with

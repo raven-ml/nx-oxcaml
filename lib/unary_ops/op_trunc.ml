@@ -169,7 +169,7 @@ let trunc_int16 (a_arr : int16# array) (out_arr : int16# array) va vout start_id
       Array.unsafe_set out_arr (out_offset + k) (Array.unsafe_get a_arr (a_offset + a_lin))
     done
 
-let trunc_int32 (a_arr : int32# array) (out_arr : int32# array) va vout start_idx end_idx =
+let trunc_int32 (a_arr : int32_u array) (out_arr : int32_u array) va vout start_idx end_idx =
   let out_base = View.offset vout + start_idx in
   let a_base = View.offset va + start_idx in
   if View.is_c_contiguous vout && View.is_c_contiguous va then (
@@ -207,7 +207,7 @@ let trunc_int32 (a_arr : int32# array) (out_arr : int32# array) va vout start_id
       Array.unsafe_set out_arr (out_offset + k) (Array.unsafe_get a_arr (a_offset + a_lin))
     done
 
-let trunc_int64 (a_arr : int64# array) (out_arr : int64# array) va vout start_idx end_idx =
+let trunc_int64 (a_arr : int64_u array) (out_arr : int64_u array) va vout start_idx end_idx =
   let out_base = View.offset vout + start_idx in
   let a_base = View.offset va + start_idx in
   if View.is_c_contiguous vout && View.is_c_contiguous va then (

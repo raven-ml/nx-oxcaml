@@ -44,7 +44,7 @@ let advance_state md_index ishape idx_strides src_strides out_strides axis idx_l
   done
 
 let scatter_float64 mode (src : float# array) (dst : float# array) ishape dshape
-    axis (idx_arr : int32# array) src_offset src_strides idx_offset idx_strides
+    axis (idx_arr : int32_u array) src_offset src_strides idx_offset idx_strides
     out_offset out_strides start_idx end_idx =
   if start_idx >= end_idx then ()
   else
@@ -93,8 +93,8 @@ let scatter_float64 mode (src : float# array) (dst : float# array) ishape dshape
           idx_lin src_lin dst_base
     done
 
-let scatter_float32 mode (src : float32# array) (dst : float32# array) ishape
-    dshape axis (idx_arr : int32# array) src_offset src_strides idx_offset
+let scatter_float32 mode (src : float32_u array) (dst : float32_u array) ishape
+    dshape axis (idx_arr : int32_u array) src_offset src_strides idx_offset
     idx_strides out_offset out_strides start_idx end_idx =
   if start_idx >= end_idx then ()
   else
@@ -144,7 +144,7 @@ let scatter_float32 mode (src : float32# array) (dst : float32# array) ishape
     done
 
 let scatter_int8 mode (src : int8# array) (dst : int8# array) ishape dshape axis
-    (idx_arr : int32# array) src_offset src_strides idx_offset idx_strides
+    (idx_arr : int32_u array) src_offset src_strides idx_offset idx_strides
     out_offset out_strides start_idx end_idx =
   if start_idx >= end_idx then ()
   else
@@ -194,7 +194,7 @@ let scatter_int8 mode (src : int8# array) (dst : int8# array) ishape dshape axis
     done
 
 let scatter_int16 mode (src : int16# array) (dst : int16# array) ishape dshape
-    axis (idx_arr : int32# array) src_offset src_strides idx_offset idx_strides
+    axis (idx_arr : int32_u array) src_offset src_strides idx_offset idx_strides
     out_offset out_strides start_idx end_idx =
   if start_idx >= end_idx then ()
   else
@@ -243,8 +243,8 @@ let scatter_int16 mode (src : int16# array) (dst : int16# array) ishape dshape
           idx_lin src_lin dst_base
     done
 
-let scatter_int32 mode (src : int32# array) (dst : int32# array) ishape dshape
-    axis (idx_arr : int32# array) src_offset src_strides idx_offset idx_strides
+let scatter_int32 mode (src : int32_u array) (dst : int32_u array) ishape dshape
+    axis (idx_arr : int32_u array) src_offset src_strides idx_offset idx_strides
     out_offset out_strides start_idx end_idx =
   if start_idx >= end_idx then ()
   else
@@ -293,8 +293,8 @@ let scatter_int32 mode (src : int32# array) (dst : int32# array) ishape dshape
           idx_lin src_lin dst_base
     done
 
-let scatter_int64 mode (src : int64# array) (dst : int64# array) ishape dshape
-    axis (idx_arr : int32# array) src_offset src_strides idx_offset idx_strides
+let scatter_int64 mode (src : int64_u array) (dst : int64_u array) ishape dshape
+    axis (idx_arr : int32_u array) src_offset src_strides idx_offset idx_strides
     out_offset out_strides start_idx end_idx =
   if start_idx >= end_idx then ()
   else
@@ -344,7 +344,7 @@ let scatter_int64 mode (src : int64# array) (dst : int64# array) ishape dshape
     done
 
 let scatter_bool mode (src : bool array) (dst : bool array) ishape dshape axis
-    (idx_arr : int32# array) src_offset src_strides idx_offset idx_strides
+    (idx_arr : int32_u array) src_offset src_strides idx_offset idx_strides
     out_offset out_strides start_idx end_idx =
   if start_idx >= end_idx then ()
   else

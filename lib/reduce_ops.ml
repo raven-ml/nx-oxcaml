@@ -458,7 +458,7 @@ let sum_all_partial_float32 a_arr va start_idx end_idx =
     let h2 = Float32x4.horizontal_add h1 h1 in
     let simd_result = Float32x4.extract0 h2 in
     let start_remainder = (n / 4) * 4 in
-    let rec scalar_loop k (acc : float32#) =
+    let rec scalar_loop k (acc : float32_u) =
       if k < n then
         scalar_loop (k + 1) (Float32_u.add acc (Array.unsafe_get a_arr (base + k)))
       else acc
@@ -800,7 +800,7 @@ let prod_all_partial_float32 a_arr va start_idx end_idx =
     let #(v0, v1, v2, v3) = Float32x4.splat acc_vec in
     let simd_result = Float32_u.mul (Float32_u.mul v0 v1) (Float32_u.mul v2 v3) in
     let start_remainder = (n / 4) * 4 in
-    let rec scalar_loop k (acc : float32#) =
+    let rec scalar_loop k (acc : float32_u) =
       if k < n then
         scalar_loop (k + 1) (Float32_u.mul acc (Array.unsafe_get a_arr (base + k)))
       else acc
@@ -1121,7 +1121,7 @@ let min_all_float32 a_arr va start_idx end_idx =
     let base = View.offset va + start_idx in
     let n = end_idx - start_idx in
     if n < 4 then (
-      let rec scalar_loop i (acc : float32#) =
+      let rec scalar_loop i (acc : float32_u) =
         if i < n then
           scalar_loop (i + 1) (Float32_u.min acc (Array.unsafe_get a_arr (base + i)))
         else acc
@@ -1158,7 +1158,7 @@ let min_all_float32 a_arr va start_idx end_idx =
       let #(v0, v1, v2, v3) = Float32x4.splat acc_vec in
       let simd_result = Float32_u.min (Float32_u.min v0 v1) (Float32_u.min v2 v3) in
       let start_remainder = (n / 4) * 4 in
-      let rec scalar_loop k (acc : float32#) =
+      let rec scalar_loop k (acc : float32_u) =
         if k < n then
           scalar_loop (k + 1) (Float32_u.min acc (Array.unsafe_get a_arr (base + k)))
         else acc
@@ -1485,7 +1485,7 @@ let max_all_float32 a_arr va start_idx end_idx =
     let base = View.offset va + start_idx in
     let n = end_idx - start_idx in
     if n < 4 then (
-      let rec scalar_loop i (acc : float32#) =
+      let rec scalar_loop i (acc : float32_u) =
         if i < n then
           scalar_loop (i + 1) (Float32_u.max acc (Array.unsafe_get a_arr (base + i)))
         else acc
@@ -1522,7 +1522,7 @@ let max_all_float32 a_arr va start_idx end_idx =
       let #(v0, v1, v2, v3) = Float32x4.splat acc_vec in
       let simd_result = Float32_u.max (Float32_u.max v0 v1) (Float32_u.max v2 v3) in
       let start_remainder = (n / 4) * 4 in
-      let rec scalar_loop k (acc : float32#) =
+      let rec scalar_loop k (acc : float32_u) =
         if k < n then
           scalar_loop (k + 1) (Float32_u.max acc (Array.unsafe_get a_arr (base + k)))
         else acc

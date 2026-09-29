@@ -154,7 +154,7 @@ let sort_float64 pool ~(out_arr : float# array) ~a_arr ~va ~vout ~axis
         work_on_group g
       done
 
-let sort_float32 pool ~(out_arr : float32# array) ~a_arr ~va ~vout ~axis
+let sort_float32 pool ~(out_arr : float32_u array) ~a_arr ~va ~vout ~axis
     ~descending =
   let in_shape = shape va in
   let rank = Array.length in_shape in
@@ -268,7 +268,7 @@ let sort_float32 pool ~(out_arr : float32# array) ~a_arr ~va ~vout ~axis
         work_on_group g
       done
 
-let sort_int32 pool ~(out_arr : int32# array) ~(a_arr : int32# array) ~va ~vout
+let sort_int32 pool ~(out_arr : int32_u array) ~(a_arr : int32_u array) ~va ~vout
     ~axis ~descending =
   let in_shape = shape va in
   let rank = Array.length in_shape in
@@ -382,7 +382,7 @@ let sort_int32 pool ~(out_arr : int32# array) ~(a_arr : int32# array) ~va ~vout
         work_on_group g
       done
 
-let sort_int64 pool ~(out_arr : int64# array) ~(a_arr : int64# array) ~va ~vout
+let sort_int64 pool ~(out_arr : int64_u array) ~(a_arr : int64_u array) ~va ~vout
     ~axis ~descending =
   let in_shape = shape va in
   let rank = Array.length in_shape in
@@ -498,7 +498,7 @@ let sort_int64 pool ~(out_arr : int64# array) ~(a_arr : int64# array) ~va ~vout
 
 (* --- argsort --- *)
 
-let argsort_float64 pool ~(out_arr : int32# array) ~a_arr ~va ~vout ~axis
+let argsort_float64 pool ~(out_arr : int32_u array) ~a_arr ~va ~vout ~axis
     ~descending =
   let in_shape = shape va in
   let rank = Array.length in_shape in
@@ -596,7 +596,7 @@ let argsort_float64 pool ~(out_arr : int32# array) ~a_arr ~va ~vout ~axis
         work_on_group g
       done
 
-let argsort_float32 pool ~(out_arr : int32# array) ~a_arr ~va ~vout ~axis
+let argsort_float32 pool ~(out_arr : int32_u array) ~a_arr ~va ~vout ~axis
     ~descending =
   let in_shape = shape va in
   let rank = Array.length in_shape in
@@ -694,7 +694,7 @@ let argsort_float32 pool ~(out_arr : int32# array) ~a_arr ~va ~vout ~axis
         work_on_group g
       done
 
-let argsort_int32 pool ~(out_arr : int32# array) ~(a_arr : int32# array) ~va
+let argsort_int32 pool ~(out_arr : int32_u array) ~(a_arr : int32_u array) ~va
     ~vout ~axis ~descending =
   let in_shape = shape va in
   let rank = Array.length in_shape in
@@ -792,7 +792,7 @@ let argsort_int32 pool ~(out_arr : int32# array) ~(a_arr : int32# array) ~va
         work_on_group g
       done
 
-let argsort_int64 pool ~(out_arr : int32# array) ~(a_arr : int64# array) ~va
+let argsort_int64 pool ~(out_arr : int32_u array) ~(a_arr : int64_u array) ~va
     ~vout ~axis ~descending =
   let in_shape = shape va in
   let rank = Array.length in_shape in

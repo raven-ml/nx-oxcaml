@@ -7,7 +7,7 @@ open Import
 
 (* --- Float64 --- *)
 
-let cast_float64_float32 (src : float# array) (dst : float32# array) n in_shape
+let cast_float64_float32 (src : float# array) (dst : float32_u array) n in_shape
     in_offset in_strides out_offset out_strides =
   let md_index = Array.make (Array.length in_shape) 0 in
   for k = 0 to n - 1 do
@@ -40,7 +40,7 @@ let cast_float64_int16 (src : float# array) (dst : int16# array) n in_shape
       (Int16_u.of_int (Float_u.to_int (Array.unsafe_get src src_lin)))
   done
 
-let cast_float64_int32 (src : float# array) (dst : int32# array) n in_shape
+let cast_float64_int32 (src : float# array) (dst : int32_u array) n in_shape
     in_offset in_strides out_offset out_strides =
   let md_index = Array.make (Array.length in_shape) 0 in
   for k = 0 to n - 1 do
@@ -52,7 +52,7 @@ let cast_float64_int32 (src : float# array) (dst : int32# array) n in_shape
           (Int32.of_int (Float_u.to_int (Array.unsafe_get src src_lin))))
   done
 
-let cast_float64_int64 (src : float# array) (dst : int64# array) n in_shape
+let cast_float64_int64 (src : float# array) (dst : int64_u array) n in_shape
     in_offset in_strides out_offset out_strides =
   let md_index = Array.make (Array.length in_shape) 0 in
   for k = 0 to n - 1 do
@@ -77,7 +77,7 @@ let cast_float64_bool (src : float# array) (dst : bool array) n in_shape
 
 (* --- Float32 --- *)
 
-let cast_float32_float64 (src : float32# array) (dst : float# array) n in_shape
+let cast_float32_float64 (src : float32_u array) (dst : float# array) n in_shape
     in_offset in_strides out_offset out_strides =
   let md_index = Array.make (Array.length in_shape) 0 in
   for k = 0 to n - 1 do
@@ -88,7 +88,7 @@ let cast_float32_float64 (src : float32# array) (dst : float# array) n in_shape
       (Float32_u.to_float (Array.unsafe_get src src_lin))
   done
 
-let cast_float32_int8 (src : float32# array) (dst : int8# array) n in_shape
+let cast_float32_int8 (src : float32_u array) (dst : int8# array) n in_shape
     in_offset in_strides out_offset out_strides =
   let md_index = Array.make (Array.length in_shape) 0 in
   for k = 0 to n - 1 do
@@ -99,7 +99,7 @@ let cast_float32_int8 (src : float32# array) (dst : int8# array) n in_shape
       (Int8_u.of_int (Float32_u.to_int (Array.unsafe_get src src_lin)))
   done
 
-let cast_float32_int16 (src : float32# array) (dst : int16# array) n in_shape
+let cast_float32_int16 (src : float32_u array) (dst : int16# array) n in_shape
     in_offset in_strides out_offset out_strides =
   let md_index = Array.make (Array.length in_shape) 0 in
   for k = 0 to n - 1 do
@@ -110,7 +110,7 @@ let cast_float32_int16 (src : float32# array) (dst : int16# array) n in_shape
       (Int16_u.of_int (Float32_u.to_int (Array.unsafe_get src src_lin)))
   done
 
-let cast_float32_int32 (src : float32# array) (dst : int32# array) n in_shape
+let cast_float32_int32 (src : float32_u array) (dst : int32_u array) n in_shape
     in_offset in_strides out_offset out_strides =
   let md_index = Array.make (Array.length in_shape) 0 in
   for k = 0 to n - 1 do
@@ -122,7 +122,7 @@ let cast_float32_int32 (src : float32# array) (dst : int32# array) n in_shape
           (Int32.of_int (Float32_u.to_int (Array.unsafe_get src src_lin))))
   done
 
-let cast_float32_int64 (src : float32# array) (dst : int64# array) n in_shape
+let cast_float32_int64 (src : float32_u array) (dst : int64_u array) n in_shape
     in_offset in_strides out_offset out_strides =
   let md_index = Array.make (Array.length in_shape) 0 in
   for k = 0 to n - 1 do
@@ -134,7 +134,7 @@ let cast_float32_int64 (src : float32# array) (dst : int64# array) n in_shape
           (Int64.of_int (Float32_u.to_int (Array.unsafe_get src src_lin))))
   done
 
-let cast_float32_bool (src : float32# array) (dst : bool array) n in_shape
+let cast_float32_bool (src : float32_u array) (dst : bool array) n in_shape
     in_offset in_strides out_offset out_strides =
   let md_index = Array.make (Array.length in_shape) 0 in
   for k = 0 to n - 1 do
@@ -159,7 +159,7 @@ let cast_int8_float64 (src : int8# array) (dst : float# array) n in_shape
       (Float_u.of_int (Int8_u.to_int (Array.unsafe_get src src_lin)))
   done
 
-let cast_int8_float32 (src : int8# array) (dst : float32# array) n in_shape
+let cast_int8_float32 (src : int8# array) (dst : float32_u array) n in_shape
     in_offset in_strides out_offset out_strides =
   let md_index = Array.make (Array.length in_shape) 0 in
   for k = 0 to n - 1 do
@@ -181,7 +181,7 @@ let cast_int8_int16 (src : int8# array) (dst : int16# array) n in_shape
       (Int16_u.of_int (Int8_u.to_int (Array.unsafe_get src src_lin)))
   done
 
-let cast_int8_int32 (src : int8# array) (dst : int32# array) n in_shape
+let cast_int8_int32 (src : int8# array) (dst : int32_u array) n in_shape
     in_offset in_strides out_offset out_strides =
   let md_index = Array.make (Array.length in_shape) 0 in
   for k = 0 to n - 1 do
@@ -193,7 +193,7 @@ let cast_int8_int32 (src : int8# array) (dst : int32# array) n in_shape
           (Int32.of_int (Int8_u.to_int (Array.unsafe_get src src_lin))))
   done
 
-let cast_int8_int64 (src : int8# array) (dst : int64# array) n in_shape
+let cast_int8_int64 (src : int8# array) (dst : int64_u array) n in_shape
     in_offset in_strides out_offset out_strides =
   let md_index = Array.make (Array.length in_shape) 0 in
   for k = 0 to n - 1 do
@@ -229,7 +229,7 @@ let cast_int16_float64 (src : int16# array) (dst : float# array) n in_shape
       (Float_u.of_int (Int16_u.to_int (Array.unsafe_get src src_lin)))
   done
 
-let cast_int16_float32 (src : int16# array) (dst : float32# array) n in_shape
+let cast_int16_float32 (src : int16# array) (dst : float32_u array) n in_shape
     in_offset in_strides out_offset out_strides =
   let md_index = Array.make (Array.length in_shape) 0 in
   for k = 0 to n - 1 do
@@ -251,7 +251,7 @@ let cast_int16_int8 (src : int16# array) (dst : int8# array) n in_shape
       (Int8_u.of_int (Int16_u.to_int (Array.unsafe_get src src_lin)))
   done
 
-let cast_int16_int32 (src : int16# array) (dst : int32# array) n in_shape
+let cast_int16_int32 (src : int16# array) (dst : int32_u array) n in_shape
     in_offset in_strides out_offset out_strides =
   let md_index = Array.make (Array.length in_shape) 0 in
   for k = 0 to n - 1 do
@@ -263,7 +263,7 @@ let cast_int16_int32 (src : int16# array) (dst : int32# array) n in_shape
           (Int32.of_int (Int16_u.to_int (Array.unsafe_get src src_lin))))
   done
 
-let cast_int16_int64 (src : int16# array) (dst : int64# array) n in_shape
+let cast_int16_int64 (src : int16# array) (dst : int64_u array) n in_shape
     in_offset in_strides out_offset out_strides =
   let md_index = Array.make (Array.length in_shape) 0 in
   for k = 0 to n - 1 do
@@ -288,7 +288,7 @@ let cast_int16_bool (src : int16# array) (dst : bool array) n in_shape in_offset
 
 (* --- Int32 --- *)
 
-let cast_int32_float64 (src : int32# array) (dst : float# array) n in_shape
+let cast_int32_float64 (src : int32_u array) (dst : float# array) n in_shape
     in_offset in_strides out_offset out_strides =
   let md_index = Array.make (Array.length in_shape) 0 in
   for k = 0 to n - 1 do
@@ -300,7 +300,7 @@ let cast_int32_float64 (src : int32# array) (dst : float# array) n in_shape
           (Int32.to_int (Int32_u.to_int32 (Array.unsafe_get src src_lin))))
   done
 
-let cast_int32_float32 (src : int32# array) (dst : float32# array) n in_shape
+let cast_int32_float32 (src : int32_u array) (dst : float32_u array) n in_shape
     in_offset in_strides out_offset out_strides =
   let md_index = Array.make (Array.length in_shape) 0 in
   for k = 0 to n - 1 do
@@ -312,7 +312,7 @@ let cast_int32_float32 (src : int32# array) (dst : float32# array) n in_shape
           (Int32.to_int (Int32_u.to_int32 (Array.unsafe_get src src_lin))))
   done
 
-let cast_int32_int8 (src : int32# array) (dst : int8# array) n in_shape
+let cast_int32_int8 (src : int32_u array) (dst : int8# array) n in_shape
     in_offset in_strides out_offset out_strides =
   let md_index = Array.make (Array.length in_shape) 0 in
   for k = 0 to n - 1 do
@@ -324,7 +324,7 @@ let cast_int32_int8 (src : int32# array) (dst : int8# array) n in_shape
           (Int32.to_int (Int32_u.to_int32 (Array.unsafe_get src src_lin))))
   done
 
-let cast_int32_int16 (src : int32# array) (dst : int16# array) n in_shape
+let cast_int32_int16 (src : int32_u array) (dst : int16# array) n in_shape
     in_offset in_strides out_offset out_strides =
   let md_index = Array.make (Array.length in_shape) 0 in
   for k = 0 to n - 1 do
@@ -336,7 +336,7 @@ let cast_int32_int16 (src : int32# array) (dst : int16# array) n in_shape
           (Int32.to_int (Int32_u.to_int32 (Array.unsafe_get src src_lin))))
   done
 
-let cast_int32_int64 (src : int32# array) (dst : int64# array) n in_shape
+let cast_int32_int64 (src : int32_u array) (dst : int64_u array) n in_shape
     in_offset in_strides out_offset out_strides =
   let md_index = Array.make (Array.length in_shape) 0 in
   for k = 0 to n - 1 do
@@ -348,7 +348,7 @@ let cast_int32_int64 (src : int32# array) (dst : int64# array) n in_shape
           (Int64.of_int32 (Int32_u.to_int32 (Array.unsafe_get src src_lin))))
   done
 
-let cast_int32_bool (src : int32# array) (dst : bool array) n in_shape in_offset
+let cast_int32_bool (src : int32_u array) (dst : bool array) n in_shape in_offset
     in_strides out_offset out_strides =
   let md_index = Array.make (Array.length in_shape) 0 in
   for k = 0 to n - 1 do
@@ -361,7 +361,7 @@ let cast_int32_bool (src : int32# array) (dst : bool array) n in_shape in_offset
 
 (* --- Int64 --- *)
 
-let cast_int64_float64 (src : int64# array) (dst : float# array) n in_shape
+let cast_int64_float64 (src : int64_u array) (dst : float# array) n in_shape
     in_offset in_strides out_offset out_strides =
   let md_index = Array.make (Array.length in_shape) 0 in
   for k = 0 to n - 1 do
@@ -373,7 +373,7 @@ let cast_int64_float64 (src : int64# array) (dst : float# array) n in_shape
           (Int64.to_int (Int64_u.to_int64 (Array.unsafe_get src src_lin))))
   done
 
-let cast_int64_float32 (src : int64# array) (dst : float32# array) n in_shape
+let cast_int64_float32 (src : int64_u array) (dst : float32_u array) n in_shape
     in_offset in_strides out_offset out_strides =
   let md_index = Array.make (Array.length in_shape) 0 in
   for k = 0 to n - 1 do
@@ -385,7 +385,7 @@ let cast_int64_float32 (src : int64# array) (dst : float32# array) n in_shape
           (Int64.to_int (Int64_u.to_int64 (Array.unsafe_get src src_lin))))
   done
 
-let cast_int64_int8 (src : int64# array) (dst : int8# array) n in_shape
+let cast_int64_int8 (src : int64_u array) (dst : int8# array) n in_shape
     in_offset in_strides out_offset out_strides =
   let md_index = Array.make (Array.length in_shape) 0 in
   for k = 0 to n - 1 do
@@ -397,7 +397,7 @@ let cast_int64_int8 (src : int64# array) (dst : int8# array) n in_shape
           (Int64.to_int (Int64_u.to_int64 (Array.unsafe_get src src_lin))))
   done
 
-let cast_int64_int16 (src : int64# array) (dst : int16# array) n in_shape
+let cast_int64_int16 (src : int64_u array) (dst : int16# array) n in_shape
     in_offset in_strides out_offset out_strides =
   let md_index = Array.make (Array.length in_shape) 0 in
   for k = 0 to n - 1 do
@@ -409,7 +409,7 @@ let cast_int64_int16 (src : int64# array) (dst : int16# array) n in_shape
           (Int64.to_int (Int64_u.to_int64 (Array.unsafe_get src src_lin))))
   done
 
-let cast_int64_int32 (src : int64# array) (dst : int32# array) n in_shape
+let cast_int64_int32 (src : int64_u array) (dst : int32_u array) n in_shape
     in_offset in_strides out_offset out_strides =
   let md_index = Array.make (Array.length in_shape) 0 in
   for k = 0 to n - 1 do
@@ -421,7 +421,7 @@ let cast_int64_int32 (src : int64# array) (dst : int32# array) n in_shape
           (Int64.to_int32 (Int64_u.to_int64 (Array.unsafe_get src src_lin))))
   done
 
-let cast_int64_bool (src : int64# array) (dst : bool array) n in_shape in_offset
+let cast_int64_bool (src : int64_u array) (dst : bool array) n in_shape in_offset
     in_strides out_offset out_strides =
   let md_index = Array.make (Array.length in_shape) 0 in
   for k = 0 to n - 1 do
@@ -445,7 +445,7 @@ let cast_bool_float64 (src : bool array) (dst : float# array) n in_shape
       (Float_u.of_float (if Array.unsafe_get src src_lin then 1.0 else 0.0))
   done
 
-let cast_bool_float32 (src : bool array) (dst : float32# array) n in_shape
+let cast_bool_float32 (src : bool array) (dst : float32_u array) n in_shape
     in_offset in_strides out_offset out_strides =
   let md_index = Array.make (Array.length in_shape) 0 in
   for k = 0 to n - 1 do
@@ -478,7 +478,7 @@ let cast_bool_int16 (src : bool array) (dst : int16# array) n in_shape in_offset
       (Int16_u.of_int (if Array.unsafe_get src src_lin then 1 else 0))
   done
 
-let cast_bool_int32 (src : bool array) (dst : int32# array) n in_shape in_offset
+let cast_bool_int32 (src : bool array) (dst : int32_u array) n in_shape in_offset
     in_strides out_offset out_strides =
   let md_index = Array.make (Array.length in_shape) 0 in
   for k = 0 to n - 1 do
@@ -489,7 +489,7 @@ let cast_bool_int32 (src : bool array) (dst : int32# array) n in_shape in_offset
       (Int32_u.of_int32 (if Array.unsafe_get src src_lin then 1l else 0l))
   done
 
-let cast_bool_int64 (src : bool array) (dst : int64# array) n in_shape in_offset
+let cast_bool_int64 (src : bool array) (dst : int64_u array) n in_shape in_offset
     in_strides out_offset out_strides =
   let md_index = Array.make (Array.length in_shape) 0 in
   for k = 0 to n - 1 do

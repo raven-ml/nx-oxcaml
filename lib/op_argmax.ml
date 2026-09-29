@@ -9,7 +9,7 @@ let parallel_threshold = 62500
 
 (* --- argmax --- *)
 
-let argmax_all_float64 (out_arr : int32# array) out_offset a_arr va in_numel =
+let argmax_all_float64 (out_arr : int32_u array) out_offset a_arr va in_numel =
   if in_numel = 0 then
     invalid_arg "argmax: empty input";
   let a_offset = View.offset va in
@@ -41,7 +41,7 @@ let argmax_all_float64 (out_arr : int32# array) out_offset a_arr va in_numel =
     done;
     Array.unsafe_set out_arr out_offset (Int32_u.of_int !best_idx)
 
-let argmax_all_float32 (out_arr : int32# array) out_offset a_arr va in_numel =
+let argmax_all_float32 (out_arr : int32_u array) out_offset a_arr va in_numel =
   if in_numel = 0 then
     invalid_arg "argmax: empty input";
   let a_offset = View.offset va in
@@ -73,7 +73,7 @@ let argmax_all_float32 (out_arr : int32# array) out_offset a_arr va in_numel =
     done;
     Array.unsafe_set out_arr out_offset (Int32_u.of_int !best_idx)
 
-let argmax_all_int32 (out_arr : int32# array) out_offset (a_arr : int32# array)
+let argmax_all_int32 (out_arr : int32_u array) out_offset (a_arr : int32_u array)
     va in_numel =
   if in_numel = 0 then
     invalid_arg "argmax: empty input";
@@ -106,7 +106,7 @@ let argmax_all_int32 (out_arr : int32# array) out_offset (a_arr : int32# array)
     done;
     Array.unsafe_set out_arr out_offset (Int32_u.of_int !best_idx)
 
-let argmax_all_int64 (out_arr : int32# array) out_offset (a_arr : int64# array)
+let argmax_all_int64 (out_arr : int32_u array) out_offset (a_arr : int64_u array)
     va in_numel =
   if in_numel = 0 then
     invalid_arg "argmax: empty input";
@@ -141,7 +141,7 @@ let argmax_all_int64 (out_arr : int32# array) out_offset (a_arr : int64# array)
 
 (* Axis-based argmax *)
 
-let argmax_axis_float64 (out_arr : int32# array) a_arr va vout axis keepdims
+let argmax_axis_float64 (out_arr : int32_u array) a_arr va vout axis keepdims
     start_idx end_idx =
   let plan = Reduce_ops.make_plan [| axis |] keepdims va vout in
   let out_md_index = Array.make plan.out_rank 0 in
@@ -167,7 +167,7 @@ let argmax_axis_float64 (out_arr : int32# array) a_arr va vout axis keepdims
     Array.unsafe_set out_arr (plan.out_offset + k) (Int32_u.of_int !best_idx)
   done
 
-let argmax_axis_float32 (out_arr : int32# array) a_arr va vout axis keepdims
+let argmax_axis_float32 (out_arr : int32_u array) a_arr va vout axis keepdims
     start_idx end_idx =
   let plan = Reduce_ops.make_plan [| axis |] keepdims va vout in
   let out_md_index = Array.make plan.out_rank 0 in
@@ -193,7 +193,7 @@ let argmax_axis_float32 (out_arr : int32# array) a_arr va vout axis keepdims
     Array.unsafe_set out_arr (plan.out_offset + k) (Int32_u.of_int !best_idx)
   done
 
-let argmax_axis_int32 (out_arr : int32# array) (a_arr : int32# array) va vout
+let argmax_axis_int32 (out_arr : int32_u array) (a_arr : int32_u array) va vout
     axis keepdims start_idx end_idx =
   let plan = Reduce_ops.make_plan [| axis |] keepdims va vout in
   let out_md_index = Array.make plan.out_rank 0 in
@@ -219,7 +219,7 @@ let argmax_axis_int32 (out_arr : int32# array) (a_arr : int32# array) va vout
     Array.unsafe_set out_arr (plan.out_offset + k) (Int32_u.of_int !best_idx)
   done
 
-let argmax_axis_int64 (out_arr : int32# array) (a_arr : int64# array) va vout
+let argmax_axis_int64 (out_arr : int32_u array) (a_arr : int64_u array) va vout
     axis keepdims start_idx end_idx =
   let plan = Reduce_ops.make_plan [| axis |] keepdims va vout in
   let out_md_index = Array.make plan.out_rank 0 in
@@ -247,7 +247,7 @@ let argmax_axis_int64 (out_arr : int32# array) (a_arr : int64# array) va vout
 
 (* Entry points *)
 
-let argmax_float64 pool ~(out_arr : int32# array) ~a_arr ~va ~vout ~axis
+let argmax_float64 pool ~(out_arr : int32_u array) ~a_arr ~va ~vout ~axis
     ~keepdims =
   let in_numel = numel va in
   let out_numel = numel vout in
@@ -260,7 +260,7 @@ let argmax_float64 pool ~(out_arr : int32# array) ~a_arr ~va ~vout ~axis
         argmax_axis_float64 out_arr a_arr va vout axis keepdims s e)
   else argmax_axis_float64 out_arr a_arr va vout axis keepdims 0 out_numel
 
-let argmax_float32 pool ~(out_arr : int32# array) ~a_arr ~va ~vout ~axis
+let argmax_float32 pool ~(out_arr : int32_u array) ~a_arr ~va ~vout ~axis
     ~keepdims =
   let in_numel = numel va in
   let out_numel = numel vout in
@@ -273,7 +273,7 @@ let argmax_float32 pool ~(out_arr : int32# array) ~a_arr ~va ~vout ~axis
         argmax_axis_float32 out_arr a_arr va vout axis keepdims s e)
   else argmax_axis_float32 out_arr a_arr va vout axis keepdims 0 out_numel
 
-let argmax_int32 pool ~(out_arr : int32# array) ~a_arr ~va ~vout ~axis
+let argmax_int32 pool ~(out_arr : int32_u array) ~a_arr ~va ~vout ~axis
     ~keepdims =
   let in_numel = numel va in
   let out_numel = numel vout in
@@ -286,7 +286,7 @@ let argmax_int32 pool ~(out_arr : int32# array) ~a_arr ~va ~vout ~axis
         argmax_axis_int32 out_arr a_arr va vout axis keepdims s e)
   else argmax_axis_int32 out_arr a_arr va vout axis keepdims 0 out_numel
 
-let argmax_int64 pool ~(out_arr : int32# array) ~a_arr ~va ~vout ~axis
+let argmax_int64 pool ~(out_arr : int32_u array) ~a_arr ~va ~vout ~axis
     ~keepdims =
   let in_numel = numel va in
   let out_numel = numel vout in
@@ -301,7 +301,7 @@ let argmax_int64 pool ~(out_arr : int32# array) ~a_arr ~va ~vout ~axis
 
 (* --- argmin --- *)
 
-let argmin_all_float64 (out_arr : int32# array) out_offset a_arr va in_numel =
+let argmin_all_float64 (out_arr : int32_u array) out_offset a_arr va in_numel =
   if in_numel = 0 then
     invalid_arg "argmin: empty input";
   let a_offset = View.offset va in
@@ -333,7 +333,7 @@ let argmin_all_float64 (out_arr : int32# array) out_offset a_arr va in_numel =
     done;
     Array.unsafe_set out_arr out_offset (Int32_u.of_int !best_idx)
 
-let argmin_all_float32 (out_arr : int32# array) out_offset a_arr va in_numel =
+let argmin_all_float32 (out_arr : int32_u array) out_offset a_arr va in_numel =
   if in_numel = 0 then
     invalid_arg "argmin: empty input";
   let a_offset = View.offset va in
@@ -365,7 +365,7 @@ let argmin_all_float32 (out_arr : int32# array) out_offset a_arr va in_numel =
     done;
     Array.unsafe_set out_arr out_offset (Int32_u.of_int !best_idx)
 
-let argmin_all_int32 (out_arr : int32# array) out_offset (a_arr : int32# array)
+let argmin_all_int32 (out_arr : int32_u array) out_offset (a_arr : int32_u array)
     va in_numel =
   if in_numel = 0 then
     invalid_arg "argmin: empty input";
@@ -398,7 +398,7 @@ let argmin_all_int32 (out_arr : int32# array) out_offset (a_arr : int32# array)
     done;
     Array.unsafe_set out_arr out_offset (Int32_u.of_int !best_idx)
 
-let argmin_all_int64 (out_arr : int32# array) out_offset (a_arr : int64# array)
+let argmin_all_int64 (out_arr : int32_u array) out_offset (a_arr : int64_u array)
     va in_numel =
   if in_numel = 0 then
     invalid_arg "argmin: empty input";
@@ -433,7 +433,7 @@ let argmin_all_int64 (out_arr : int32# array) out_offset (a_arr : int64# array)
 
 (* Axis-based argmin *)
 
-let argmin_axis_float64 (out_arr : int32# array) a_arr va vout axis keepdims
+let argmin_axis_float64 (out_arr : int32_u array) a_arr va vout axis keepdims
     start_idx end_idx =
   let plan = Reduce_ops.make_plan [| axis |] keepdims va vout in
   let out_md_index = Array.make plan.out_rank 0 in
@@ -459,7 +459,7 @@ let argmin_axis_float64 (out_arr : int32# array) a_arr va vout axis keepdims
     Array.unsafe_set out_arr (plan.out_offset + k) (Int32_u.of_int !best_idx)
   done
 
-let argmin_axis_float32 (out_arr : int32# array) a_arr va vout axis keepdims
+let argmin_axis_float32 (out_arr : int32_u array) a_arr va vout axis keepdims
     start_idx end_idx =
   let plan = Reduce_ops.make_plan [| axis |] keepdims va vout in
   let out_md_index = Array.make plan.out_rank 0 in
@@ -485,7 +485,7 @@ let argmin_axis_float32 (out_arr : int32# array) a_arr va vout axis keepdims
     Array.unsafe_set out_arr (plan.out_offset + k) (Int32_u.of_int !best_idx)
   done
 
-let argmin_axis_int32 (out_arr : int32# array) (a_arr : int32# array) va vout
+let argmin_axis_int32 (out_arr : int32_u array) (a_arr : int32_u array) va vout
     axis keepdims start_idx end_idx =
   let plan = Reduce_ops.make_plan [| axis |] keepdims va vout in
   let out_md_index = Array.make plan.out_rank 0 in
@@ -511,7 +511,7 @@ let argmin_axis_int32 (out_arr : int32# array) (a_arr : int32# array) va vout
     Array.unsafe_set out_arr (plan.out_offset + k) (Int32_u.of_int !best_idx)
   done
 
-let argmin_axis_int64 (out_arr : int32# array) (a_arr : int64# array) va vout
+let argmin_axis_int64 (out_arr : int32_u array) (a_arr : int64_u array) va vout
     axis keepdims start_idx end_idx =
   let plan = Reduce_ops.make_plan [| axis |] keepdims va vout in
   let out_md_index = Array.make plan.out_rank 0 in
@@ -539,7 +539,7 @@ let argmin_axis_int64 (out_arr : int32# array) (a_arr : int64# array) va vout
 
 (* Entry points *)
 
-let argmin_float64 pool ~(out_arr : int32# array) ~a_arr ~va ~vout ~axis
+let argmin_float64 pool ~(out_arr : int32_u array) ~a_arr ~va ~vout ~axis
     ~keepdims =
   let in_numel = numel va in
   let out_numel = numel vout in
@@ -552,7 +552,7 @@ let argmin_float64 pool ~(out_arr : int32# array) ~a_arr ~va ~vout ~axis
         argmin_axis_float64 out_arr a_arr va vout axis keepdims s e)
   else argmin_axis_float64 out_arr a_arr va vout axis keepdims 0 out_numel
 
-let argmin_float32 pool ~(out_arr : int32# array) ~a_arr ~va ~vout ~axis
+let argmin_float32 pool ~(out_arr : int32_u array) ~a_arr ~va ~vout ~axis
     ~keepdims =
   let in_numel = numel va in
   let out_numel = numel vout in
@@ -565,7 +565,7 @@ let argmin_float32 pool ~(out_arr : int32# array) ~a_arr ~va ~vout ~axis
         argmin_axis_float32 out_arr a_arr va vout axis keepdims s e)
   else argmin_axis_float32 out_arr a_arr va vout axis keepdims 0 out_numel
 
-let argmin_int32 pool ~(out_arr : int32# array) ~a_arr ~va ~vout ~axis
+let argmin_int32 pool ~(out_arr : int32_u array) ~a_arr ~va ~vout ~axis
     ~keepdims =
   let in_numel = numel va in
   let out_numel = numel vout in
@@ -578,7 +578,7 @@ let argmin_int32 pool ~(out_arr : int32# array) ~a_arr ~va ~vout ~axis
         argmin_axis_int32 out_arr a_arr va vout axis keepdims s e)
   else argmin_axis_int32 out_arr a_arr va vout axis keepdims 0 out_numel
 
-let argmin_int64 pool ~(out_arr : int32# array) ~a_arr ~va ~vout ~axis
+let argmin_int64 pool ~(out_arr : int32_u array) ~a_arr ~va ~vout ~axis
     ~keepdims =
   let in_numel = numel va in
   let out_numel = numel vout in

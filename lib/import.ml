@@ -45,11 +45,11 @@ module Array = struct
 
   external make_float64 : int -> float# array = "caml_make_unboxed_float64_vect"
 
-  external make_float32 : int -> float32# array
+  external make_float32 : int -> float32_u array
     = "caml_make_unboxed_float32_vect"
 
-  external make_int32 : int -> int32# array = "caml_make_unboxed_int32_vect"
-  external make_int64 : int -> int64# array = "caml_make_unboxed_int64_vect"
+  external make_int32 : int -> int32_u array = "caml_make_unboxed_int32_vect"
+  external make_int64 : int -> int64_u array = "caml_make_unboxed_int64_vect"
   external make_int8 : int -> int8# array = "caml_make_untagged_int8_vect"
   external make_int16 : int -> int16# array
     = "caml_make_untagged_int16_vect"
@@ -61,17 +61,17 @@ module Array = struct
 
   external ba_to_unboxed_float32_array
   : (float, Bigarray.float32_elt, Bigarray.c_layout) Bigarray.Array1.t
-  -> float32# array
+  -> float32_u array
   = "caml_ba_to_unboxed_float32_array"
 
   external ba_to_unboxed_int64_array
   : (int64, Bigarray.int64_elt, Bigarray.c_layout) Bigarray.Array1.t
-  -> int64# array
+  -> int64_u array
   = "caml_ba_to_unboxed_int64_array"
 
   external ba_to_unboxed_int32_array
   : (int32, Bigarray.int32_elt, Bigarray.c_layout) Bigarray.Array1.t
-  -> int32# array
+  -> int32_u array
   = "caml_ba_to_unboxed_int32_array"
 
   external ba_to_unboxed_int8_array
@@ -90,17 +90,17 @@ module Array = struct
   = "caml_unboxed_float64_array_to_ba"
 
   external unboxed_float32_to_ba
-  : float32# array -> int
+  : float32_u array -> int
   -> (float, Bigarray.float32_elt, Bigarray.c_layout) Bigarray.Array1.t
   = "caml_unboxed_float32_array_to_ba"
 
   external unboxed_int64_to_ba
-  : int64# array -> int
+  : int64_u array -> int
   -> (int64, Bigarray.int64_elt, Bigarray.c_layout) Bigarray.Array1.t
   = "caml_unboxed_int64_array_to_ba"
 
   external unboxed_int32_to_ba
-  : int32# array -> int
+  : int32_u array -> int
   -> (int32, Bigarray.int32_elt, Bigarray.c_layout) Bigarray.Array1.t
   = "caml_unboxed_int32_array_to_ba"
 

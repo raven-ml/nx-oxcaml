@@ -21,7 +21,7 @@ let pad_float64 (in_arr : float# array) (out_arr : float# array) in_shape paddin
     Array.unsafe_set out_arr dst_lin v
   done
 
-let pad_float32 (in_arr : float32# array) (out_arr : float32# array) in_shape
+let pad_float32 (in_arr : float32_u array) (out_arr : float32_u array) in_shape
     padding in_offset out_offset in_strides out_strides in_numel =
   let ndim = Array.length in_shape in
   let md_index = Array.make ndim 0 in
@@ -69,7 +69,7 @@ let pad_int16 (in_arr : int16# array) (out_arr : int16# array) in_shape padding
     Array.unsafe_set out_arr dst_lin v
   done
 
-let pad_int32 (in_arr : int32# array) (out_arr : int32# array) in_shape padding
+let pad_int32 (in_arr : int32_u array) (out_arr : int32_u array) in_shape padding
     in_offset out_offset in_strides out_strides in_numel =
   let ndim = Array.length in_shape in
   let md_index = Array.make ndim 0 in
@@ -85,7 +85,7 @@ let pad_int32 (in_arr : int32# array) (out_arr : int32# array) in_shape padding
     Array.unsafe_set out_arr dst_lin v
   done
 
-let pad_int64 (in_arr : int64# array) (out_arr : int64# array) in_shape padding
+let pad_int64 (in_arr : int64_u array) (out_arr : int64_u array) in_shape padding
     in_offset out_offset in_strides out_strides in_numel =
   let ndim = Array.length in_shape in
   let md_index = Array.make ndim 0 in
