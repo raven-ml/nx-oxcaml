@@ -352,6 +352,7 @@ let matmul_float64_slow a_buf b_buf c_buf va vb vout start_idx end_idx =
           let rec kloop l acc0 acc1=
             if l = k then #(acc0, acc1)
             else begin
+              a_idx0.(nd_a - 1) <- l;
               a_idx1.(nd_a - 1) <- l;
               b_idx.(nd_b - 2) <- l;
               let bv =
@@ -394,6 +395,7 @@ let matmul_float64_slow a_buf b_buf c_buf va vb vout start_idx end_idx =
             if l = k then #(acc0, acc1)
             else begin
               a_idx0.(nd_a - 1) <- l;
+              a_idx1.(nd_a - 1) <- l;
               b_idx.(nd_b - 2) <- l;
               let av0 =
                 Array.unsafe_get a_buf
@@ -778,6 +780,7 @@ let matmul_float32_slow a_buf b_buf c_buf va vb vout start_idx end_idx =
             if l = k then #(acc0, acc1)
             else begin
               a_idx0.(nd_a - 1) <- l;
+              a_idx1.(nd_a - 1) <- l;
               b_idx.(nd_b - 2) <- l;
               let av0 =
                 Array.unsafe_get a_buf
@@ -820,17 +823,22 @@ let matmul_float32_slow a_buf b_buf c_buf va vb vout start_idx end_idx =
             if l = k then #(acc0, acc1)
             else begin
               a_idx0.(nd_a - 1) <- l;
+              a_idx1.(nd_a - 1) <- l;
               b_idx.(nd_b - 2) <- l;
     
-              let av =
+              let av0 =
                 Array.unsafe_get a_buf
                   (View.offset va + Shape.ravel_index a_idx0 a_str)
+              in
+              let av1 =
+                Array.unsafe_get a_buf
+                  (View.offset va + Shape.ravel_index a_idx1 a_str)
               in
               let bv =
                 Array.unsafe_get b_buf
                   (View.offset vb + Shape.ravel_index b_idx b_str)
               in
-              scalar (l + 1) (Float32_u.fma av bv acc0) (Float32_u.fma av bv acc1)
+              scalar (l + 1) (Float32_u.fma av0 bv acc0) (Float32_u.fma av1 bv acc1)
             end
           in
     

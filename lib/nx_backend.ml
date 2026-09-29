@@ -1772,8 +1772,8 @@ let fold :
 let matmul (type a b) ~(out : (a, b) t) (a : (a, b) t) (b : (a, b) t) : unit
     =
   let va = a.view and vb = b.view and vout = out.view in
-  let m = (shape vout).(0) in
   let nd_out = Array.length (shape vout) in
+  let m = (shape vout).(nd_out - 2) in
   let batch_shape = Array.sub (shape vout) 0 (Stdlib.max 0 (nd_out - 2)) in
   let batch_sz =
     if Array.length batch_shape = 0 then 1 else Shape.numel batch_shape

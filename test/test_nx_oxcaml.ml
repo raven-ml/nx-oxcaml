@@ -1047,6 +1047,52 @@ let test_matmul_batched_f32 () =
   check_float "bat1[1,0]" ~eps:1e-9 2. d.(6);
   check_float "bat1[1,1]" ~eps:1e-9 2. d.(7)
 
+(* Rows are split across domains, and a domain given two or more rows
+   computes them in pairs. Fifteen rows reach the pair kernels on any core
+   count, n = 7 reaches their scalar tails, and a batch of 3 differs from the
+   row count of 5. *)
+let batched_matmul_case () =
+  let batch, m, k, n = (3, 5, 4, 7) in
+  let a =
+    Array.init (batch * m * k) (fun i -> float_of_int ((i * 7 mod 11) - 5))
+  in
+  let b =
+    Array.init (batch * k * n) (fun i -> float_of_int ((i * 5 mod 13) - 6))
+  in
+  let c = Array.make (batch * m * n) 0. in
+  for p = 0 to batch - 1 do
+    for i = 0 to m - 1 do
+      for j = 0 to n - 1 do
+        for l = 0 to k - 1 do
+          let ci = (p * m * n) + (i * n) + j in
+          c.(ci) <-
+            c.(ci)
+            +. (a.((p * m * k) + (i * k) + l) *. b.((p * k * n) + (l * n) + j))
+        done
+      done
+    done
+  done;
+  ([| batch; m; k |], a, [| batch; k; n |], b, [| batch; m; n |], c)
+
+let test_matmul_batched_many_rows () =
+  let ctx = Nx_backend.create_context () in
+  let sa, a, sb, b, sc, c = batched_matmul_case () in
+  let run dtype of_float to_float name =
+    let out = Nx_ox.empty ctx dtype sc in
+    Nx_backend.matmul ~out
+      (Nx_ox.create ctx dtype sa (Array.map of_float a))
+      (Nx_ox.create ctx dtype sb (Array.map of_float b));
+    let d = Nx_ox.to_array out in
+    Array.iteri
+      (fun i e ->
+        check_float (Printf.sprintf "%s[%d]" name i) ~eps:1e-9 e (to_float d.(i)))
+      c
+  in
+  run Dtype.Float64 Fun.id Fun.id "bat_rows_f64";
+  run Dtype.Float32 Fun.id Fun.id "bat_rows_f32";
+  run Dtype.Int32 Int32.of_float Int32.to_float "bat_rows_i32";
+  run Dtype.Int64 Int64.of_float Int64.to_float "bat_rows_i64"
+
 let test_pad_int32_1d () =
   let ctx = Nx_backend.create_context () in
   let x = Nx_ox.create ctx Dtype.Int32 [| 3 |] [| 10l; 20l; 30l |] in
@@ -2034,6 +2080,7 @@ let () =
   test_matmul_dot_product ();
   test_matmul_rectangular_f32 ();
   test_matmul_batched_f32 ();
+  test_matmul_batched_many_rows ();
   test_pad_int32_1d ();
   test_pad_float64_2d ();
   test_pad_float64_permuted_view ();
