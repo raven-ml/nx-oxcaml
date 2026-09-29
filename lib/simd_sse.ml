@@ -194,17 +194,13 @@ module Int32x4 = struct
     = "caml_sse2_unreachable" "caml_simd_vec128_interleave_low_64"
     [@@noalloc] [@@unboxed] [@@builtin]
 
-  (* [lane] must be a constant, so that [imm] folds to one. *)
   let[@inline always] dup_lane lane x =
-    let imm =
-      match lane with
-      | 0 -> 0x00
-      | 1 -> 0x55
-      | 2 -> 0xaa
-      | 3 -> 0xff
-      | _ -> invalid_arg "Int32x4.dup_lane"
-    in
-    shuffle imm x x
+    if lane < 0 || lane > 3 then invalid_arg "Int32x4.dup_lane";
+    match lane with
+    | 1 -> shuffle 0x55 x x
+    | 2 -> shuffle 0xaa x x
+    | 3 -> shuffle 0xff x x
+    | _ -> shuffle 0x00 x x
 
   let[@inline always] set1 a = dup (low_of a)
 
