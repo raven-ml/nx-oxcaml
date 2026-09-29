@@ -18,6 +18,16 @@ end
 module Int64x2 = struct
   type t = int64x2#
 
+  (* ───── Constants ───── *)
+
+  external const1 : int64_u -> t @@ portable
+    = "caml_sse2_unreachable" "caml_int64x2_const1"
+    [@@noalloc] [@@builtin]
+
+  let[@inline always] zero () = const1 #0L
+  let[@inline always] one () = const1 #1L
+  let[@inline always] all_ones () = const1 #0xffffffffffffffffL
+
   (* ───── Arithmetic ───── *)
 
   external add : t -> t -> t @@ portable
@@ -28,27 +38,23 @@ module Int64x2 = struct
     = "caml_sse2_unreachable" "caml_sse2_int64x2_sub"
     [@@noalloc] [@@unboxed] [@@builtin]
 
-  external neg : t -> t @@ portable
-    = "caml_sse2_unreachable" "caml_sse2_int64x2_neg"
-    [@@noalloc] [@@unboxed] [@@builtin]
+  let[@inline always] neg x = sub (zero ()) x
 
   (* ───── Bitwise ───── *)
 
   external bitwise_and : t -> t -> t @@ portable
-    = "caml_sse2_unreachable" "caml_sse2_vec128_and"
+    = "caml_sse2_unreachable" "caml_sse_vec128_and"
     [@@noalloc] [@@unboxed] [@@builtin]
 
   external bitwise_or : t -> t -> t @@ portable
-    = "caml_sse2_unreachable" "caml_sse2_vec128_or"
+    = "caml_sse2_unreachable" "caml_sse_vec128_or"
     [@@noalloc] [@@unboxed] [@@builtin]
 
   external bitwise_xor : t -> t -> t @@ portable
-    = "caml_sse2_unreachable" "caml_sse2_vec128_xor"
+    = "caml_sse2_unreachable" "caml_sse_vec128_xor"
     [@@noalloc] [@@unboxed] [@@builtin]
 
-  external bitwise_not : t -> t @@ portable
-    = "caml_sse2_unreachable" "caml_sse2_vec128_not"
-    [@@noalloc] [@@unboxed] [@@builtin]
+  let[@inline always] bitwise_not x = bitwise_xor x (all_ones ())
 
   let[@inline always] ( land ) x y = bitwise_and x y
   let[@inline always] ( lor ) x y = bitwise_or x y
@@ -65,16 +71,6 @@ module Int64x2 = struct
   let[@inline always] blendv a b mask =
     bitwise_or (bitwise_and b mask) (bitwise_and a (bitwise_not mask))
 
-  (* ───── Constants ───── *)
-
-  external const1 : int64_u -> t @@ portable
-    = "caml_sse2_unreachable" "caml_int64x2_const1"
-    [@@noalloc] [@@builtin]
-
-  let[@inline always] zero () = const1 #0L
-  let[@inline always] one () = const1 #1L
-  let[@inline always] all_ones () = const1 #0xffffffffffffffffL
-
   (* ───── Lanes ───── *)
 
   external low_of : int64_u -> t @@ portable
@@ -86,7 +82,7 @@ module Int64x2 = struct
     [@@noalloc] [@@builtin]
 
   external dup : t -> t @@ portable
-    = "caml_sse2_unreachable" "caml_sse2_int64x2_dup"
+    = "caml_sse2_unreachable" "caml_sse3_vec128_dup_low_64"
     [@@noalloc] [@@unboxed] [@@builtin]
 
   external low_64_to_high_64 : t -> t -> t @@ portable
@@ -116,6 +112,16 @@ end
 module Int32x4 = struct
   type t = int32x4#
 
+  (* ───── Constants ───── *)
+
+  external const1 : int32_u -> t @@ portable
+    = "caml_sse2_unreachable" "caml_int32x4_const1"
+    [@@noalloc] [@@builtin]
+
+  let[@inline always] zero () = const1 #0l
+  let[@inline always] one () = const1 #1l
+  let[@inline always] all_ones () = const1 #0xffffffffl
+
   (* ───── Arithmetic ───── *)
 
   external add : t -> t -> t @@ portable
@@ -126,9 +132,7 @@ module Int32x4 = struct
     = "caml_sse2_unreachable" "caml_sse2_int32x4_sub"
     [@@noalloc] [@@unboxed] [@@builtin]
 
-  external neg : t -> t @@ portable
-    = "caml_sse2_unreachable" "caml_sse2_int32x4_neg"
-    [@@noalloc] [@@unboxed] [@@builtin]
+  let[@inline always] neg x = sub (zero ()) x
 
   external abs : t -> t @@ portable
     = "caml_sse2_unreachable" "caml_ssse3_int32x4_abs"
@@ -147,33 +151,22 @@ module Int32x4 = struct
   (* ───── Bitwise ───── *)
 
   external bitwise_and : t -> t -> t @@ portable
-    = "caml_sse2_unreachable" "caml_sse2_vec128_and"
+    = "caml_sse2_unreachable" "caml_sse_vec128_and"
     [@@noalloc] [@@unboxed] [@@builtin]
 
   external bitwise_or : t -> t -> t @@ portable
-    = "caml_sse2_unreachable" "caml_sse2_vec128_or"
+    = "caml_sse2_unreachable" "caml_sse_vec128_or"
     [@@noalloc] [@@unboxed] [@@builtin]
 
   external bitwise_xor : t -> t -> t @@ portable
-    = "caml_sse2_unreachable" "caml_sse2_vec128_xor"
+    = "caml_sse2_unreachable" "caml_sse_vec128_xor"
     [@@noalloc] [@@unboxed] [@@builtin]
 
-  external bitwise_not : t -> t @@ portable
-    = "caml_sse2_unreachable" "caml_sse2_vec128_not"
-    [@@noalloc] [@@unboxed] [@@builtin]
+  let[@inline always] bitwise_not x = bitwise_xor x (all_ones ())
 
   let[@inline always] ( land ) x y = bitwise_and x y
   let[@inline always] ( lor ) x y = bitwise_or x y
   let[@inline always] ( lxor ) x y = bitwise_xor x y
-
-  (* ───── Constants ───── *)
-
-  external const1 : int32_u -> t @@ portable
-    = "caml_sse2_unreachable" "caml_int32x4_const1"
-    [@@noalloc] [@@builtin]
-
-  let[@inline always] zero () = const1 #0l
-  let[@inline always] one () = const1 #1l
 
   (* ───── Lanes ───── *)
 
@@ -185,9 +178,13 @@ module Int32x4 = struct
     = "caml_sse2_unreachable" "caml_int32x4_low_to_int32"
     [@@noalloc] [@@builtin]
 
-  external dup : t -> t @@ portable
-    = "caml_sse2_unreachable" "caml_sse2_int32x4_shuffle_0000"
-    [@@noalloc] [@@unboxed] [@@builtin]
+  (* [shuffle imm x x] builds each lane from lane [imm lsr (2 * i) land 3] of
+     [x]; [imm] must be a constant. *)
+  external shuffle : (int[@untagged]) -> (t[@unboxed]) -> (t[@unboxed]) -> (t[@unboxed]) @@ portable
+    = "caml_sse2_unreachable" "caml_sse_vec128_shuffle_32"
+    [@@noalloc] [@@builtin]
+
+  let[@inline always] dup x = shuffle 0x00 x x
 
   external interleave_low_32 : t -> t -> t @@ portable
     = "caml_sse2_unreachable" "caml_simd_vec128_interleave_low_32"
@@ -197,9 +194,17 @@ module Int32x4 = struct
     = "caml_sse2_unreachable" "caml_simd_vec128_interleave_low_64"
     [@@noalloc] [@@unboxed] [@@builtin]
 
-  external dup_lane : (int[@untagged]) -> (t[@unboxed]) -> (t[@unboxed]) @@ portable
-    = "caml_sse2_unreachable" "caml_sse2_int32x4_dup_lane"
-    [@@noalloc] [@@builtin]
+  (* [lane] must be a constant, so that [imm] folds to one. *)
+  let[@inline always] dup_lane lane x =
+    let imm =
+      match lane with
+      | 0 -> 0x00
+      | 1 -> 0x55
+      | 2 -> 0xaa
+      | 3 -> 0xff
+      | _ -> invalid_arg "Int32x4.dup_lane"
+    in
+    shuffle imm x x
 
   let[@inline always] set1 a = dup (low_of a)
 
@@ -254,9 +259,7 @@ module Float64x2 = struct
     = "caml_sse2_unreachable" "caml_sse2_float64x2_sqrt"
     [@@noalloc] [@@unboxed] [@@builtin]
 
-  external mul_add : (t[@unboxed]) -> (t[@unboxed]) -> (t[@unboxed]) -> (t[@unboxed]) @@ portable
-    = "caml_sse2_unreachable" "caml_fma_float64x2_fmadd"
-    [@@noalloc]
+  let[@inline always] mul_add a b c = add (mul a b) c
 
   external hadd : t -> t -> t @@ portable
     = "caml_sse2_unreachable" "caml_sse3_float64x2_hadd"
@@ -359,9 +362,7 @@ module Float32x4 = struct
     = "caml_sse2_unreachable" "caml_sse_float32x4_sqrt"
     [@@noalloc] [@@unboxed] [@@builtin]
 
-  external mul_add : (t[@unboxed]) -> (t[@unboxed]) -> (t[@unboxed]) -> (t[@unboxed]) @@ portable
-    = "caml_sse2_unreachable" "caml_fma_float32x4_fmadd"
-    [@@noalloc]
+  let[@inline always] mul_add a b c = add (mul a b) c
 
   external hadd : t -> t -> t @@ portable
     = "caml_sse2_unreachable" "caml_sse3_float32x4_hadd"
